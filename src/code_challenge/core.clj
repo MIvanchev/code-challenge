@@ -26,10 +26,10 @@
 
 (defn handler
   [data]
-  (let [res (calc-result data)]
-    (if (not= data :error)
-      {:status 200 :body {:result res}}
-      (bad-request "The JSON payload has an invalid structure!"))))
+  (if (not= data :error)
+    (let [res (calc-result data)]
+      {:status 200 :body {:result res}})
+    (bad-request "The JSON payload has an invalid structure!")))
 
 (defn wrap-json-data [handler]
   (fn [request]
