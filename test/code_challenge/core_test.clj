@@ -1,5 +1,5 @@
 (ns code-challenge.core-test
-  (:require [clojure.test :refer [deftest are]]
+  (:require [clojure.test :refer [deftest is are]]
             [ring.mock.request :as mock]
             [code-challenge.core :refer [digit-sum
                                          calc-result
@@ -25,22 +25,24 @@
   (let [wrapper (wrap-json-data identity)
         req     (mock/request :post "/")
         req-err (assoc req :body :error)]
-    (are [req body] (= req (wrapper (assoc req :body body)))
-      req-err nil
-      req-err {}
-      req-err {:address {:values "foo"}}
-      req-err {:addresss {:colorKeys ["A" "G" "Z"]
-                          :values [3 7 9]}
-               :meta {:digits 33
-                      :processingPattern "d{5}+[a-z&$ยง]"}}
-      req-err {:address {:colorKeys ["A" "G" "Z"]
-                         :values [5 100 4 3 true]}
-               :meta {:digits 33
-                      :processingPattern "d{5}+[a-z&$ยง]"}})
-    (are [req body] (= (assoc req :body body) (wrapper (assoc req :body body)))
-      req {:address {:colorKeys ["V" "G" "D"]
-                     :values []}}
-      req {:address {:colorKeys ["R" "G" "B"]
-                     :values [6 900 3101 74447]}
-           :meta {:digits 33
-                  :processingPattern "d{5}+[a-z&$ยง]"}})))
+    (letfn [(is-invalid-data? [body]
+              (is (= req-err (wrapper (assoc req :body body)))))
+            (is-valid-data? [body]
+              (is (= (assoc req :body body))))]
+      (is-invalid-data? nil)
+      (is-invalid-data? {})
+      (is-invalid-data? {:address {:values "foo"}})
+      (is-invalid-data? {:addresss {:colorKeys ["A" "G" "Z"]
+                                    :values [3 7 9]}
+                         :meta {:digits 33
+                                :processingPattern "d{5}+[a-z&$ยง]"}})
+      (is-invalid-data? {:address {:colorKeys ["A" "G" "Z"]
+                                   :values [5 100 4 3 true]}
+                         :meta {:digits 33
+                                :processingPattern "d{5}+[a-z&$ยง]"}})
+      (is-valid-data? {:address {:colorKeys ["V" "G" "D"]
+                                 :values []}})
+      (is-valid-data? {:address {:colorKeys ["R" "G" "B"]
+                                 :values [6 900 3101 74447]}
+                       :meta {:digits 33
+                              :processingPattern "d{5}+[a-z&$ยง]"}}))))
