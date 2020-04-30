@@ -7,6 +7,7 @@
                  [ring/ring-core "1.8.0"]
                  [ring/ring-json "0.5.0"]
                  [ring/ring-jetty-adapter "1.6.3"]
+                 [metosin/ring-http-response "0.9.1"]
                  [compojure "1.6.1"]]
   :repl-options {:init-ns code-challenge.core}
   :main code-challenge.core

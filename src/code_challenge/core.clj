@@ -3,6 +3,7 @@
             [compojure.route :as route]
             [ring.middleware.json :refer [wrap-json-response wrap-json-body]]
             [ring.adapter.jetty :as jetty]
+            [ring.util.http-response :refer [bad-request]]
             [ring.util.response :refer [response]])
   (:gen-class))
 
@@ -26,16 +27,25 @@
 (defn handler
   [data]
   (let [res (calc-result data)]
-    {:status 200
-     :body {:result res}}))
+    (if (not= data :error)
+      {:status 200 :body {:result res}}
+      (bad-request "The JSON payload has an invalid structure!"))))
+
+(defn wrap-json-data [handler]
+  (fn [request]
+    (let [data (get-in request [:body :address :values])]
+      (if (or (nil? data) (not (every? integer? data)))
+        (handler (assoc request :body :error))
+        (handler request)))))
 
 (defroutes app-routes
   (POST "/" req (handler (:body req)))
-  (route/not-found "<h1>Page not found</h1>"))
+  (route/not-found (bad-request "Invalid service invoked.")))
 
 (def app
   (->
     app-routes
+    wrap-json-data
     (wrap-json-body {:keywords? true :bigdecimals? true})
     wrap-json-response))
 
