@@ -40,5 +40,5 @@
     wrap-json-response))
 
 (defn -main [& args]
-  (let [port (Integer/valueOf (or (System/getenv "port") "3000"))]
+  (let [port (Integer/valueOf (or (System/getenv "PORT") "3000"))]
     (jetty/run-jetty app {:port port})))
