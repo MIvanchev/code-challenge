@@ -11,4 +11,5 @@
   :repl-options {:init-ns code-challenge.core}
   :main code-challenge.core
   :profiles {:uberjar {:aot :all}}
+  :uberjar-name "code-challenge-standalone.jar"
   :min-lein-version "2.0.0")
