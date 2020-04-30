@@ -7,8 +7,10 @@
                  [ring/ring-core "1.8.0"]
                  [ring/ring-json "0.5.0"]
                  [ring/ring-jetty-adapter "1.6.3"]
+                 [ring/ring-mock "0.4.0"]
                  [metosin/ring-http-response "0.9.1"]
                  [compojure "1.6.1"]]
+  :plugins [[lein-cljfmt "0.6.7"]]
   :repl-options {:init-ns code-challenge.core}
   :main code-challenge.core
   :profiles {:uberjar {:aot :all}}

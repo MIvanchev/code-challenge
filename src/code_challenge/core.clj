@@ -10,9 +10,9 @@
 (defn digit-sum
   [n]
   ((fn rec-sum [s n]
-    (if (zero? n)
-      s
-      (rec-sum
+     (if (zero? n)
+       s
+       (rec-sum
         (+ s (mod n 10))
         (quot n 10))))
    0 (if (neg? n) (* -1 n) n)))
@@ -44,10 +44,10 @@
 
 (def app
   (->
-    app-routes
-    wrap-json-data
-    (wrap-json-body {:keywords? true :bigdecimals? true})
-    wrap-json-response))
+   app-routes
+   wrap-json-data
+   (wrap-json-body {:keywords? true :bigdecimals? true})
+   wrap-json-response))
 
 (defn -main [& args]
   (let [port (Integer/valueOf (or (System/getenv "PORT") "3000"))]
