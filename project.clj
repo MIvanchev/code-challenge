@@ -10,4 +10,5 @@
                  [compojure "1.6.1"]]
   :repl-options {:init-ns code-challenge.core}
   :main code-challenge.core
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
+  :min-lein-version "2.0.0")
