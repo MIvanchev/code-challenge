@@ -32,6 +32,7 @@
       (is-invalid-data? nil)
       (is-invalid-data? {})
       (is-invalid-data? {:address {:values "foo"}})
+      (is-invalid-data? {:address {:values true}})
       (is-invalid-data? {:addresss {:colorKeys ["A" "G" "Z"]
                                     :values [3 7 9]}
                          :meta {:digits 33

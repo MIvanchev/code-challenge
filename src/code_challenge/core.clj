@@ -34,7 +34,9 @@
 (defn wrap-json-data [handler]
   (fn [request]
     (let [data (get-in request [:body :address :values])]
-      (if (or (nil? data) (not (every? integer? data)))
+      (if (or
+            (not (sequential? data))
+            (not (every? integer? data)))
         (handler (assoc request :body :error))
         (handler request)))))
 
