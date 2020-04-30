@@ -39,6 +39,6 @@
     (wrap-json-body {:keywords? true :bigdecimals? true})
     wrap-json-response))
 
-(defn -main []
+(defn -main [& args]
   (let [port (Integer/valueOf (or (System/getenv "port") "3000"))]
     (jetty/run-jetty app {:port port})))
