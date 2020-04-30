@@ -35,14 +35,14 @@
       (is-invalid-data? {:addresss {:colorKeys ["A" "G" "Z"]
                                     :values [3 7 9]}
                          :meta {:digits 33
-                                :processingPattern "d{5}+[a-z&$ยง]"}})
+                                :processingPattern "d{5}+[a-z&$§]"}})
       (is-invalid-data? {:address {:colorKeys ["A" "G" "Z"]
                                    :values [5 100 4 3 true]}
                          :meta {:digits 33
-                                :processingPattern "d{5}+[a-z&$ยง]"}})
+                                :processingPattern "d{5}+[a-z&$§]"}})
       (is-valid-data? {:address {:colorKeys ["V" "G" "D"]
                                  :values []}})
       (is-valid-data? {:address {:colorKeys ["R" "G" "B"]
                                  :values [6 900 3101 74447]}
                        :meta {:digits 33
-                              :processingPattern "d{5}+[a-z&$ยง]"}}))))
+                              :processingPattern "d{5}+[a-z&$§]"}}))))
